@@ -1,8 +1,117 @@
-/* add css styles here (optional) */
 
-.test {
-  display: inline-block;
-  margin: 2em auto;
-  border: 2px solid #000;
-  font-size: 2em;
+.container-upload-image{
+  display: flex;
+  cursor: pointer;
+}
+.btn-upload-upload-image{
+  position: relative;
+  background: #ccc;
+  width :50px;
+  height: 50px;
+  color : #eee;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border : 1px solid #aaa;
+  
+}
+.images-container-upload-image{
+  border : 1px solid rgba(0,0,0,0.2);
+  border-left: 0;
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 2px;
+
+  
+}
+.image-upload-image-container{
+ position: relative;
+ 
+ 
+}
+.image-upload-image{
+  color: #616161;
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  overflow: hidden;
+  position: relative;
+  border-radius: 50%;
+  box-shadow: 0px 1px 4px gray;
+  
+}
+.image-name-upload-image{
+  color: white;
+  background: #111;
+  font-size: 10px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  width : 120px;
+  text-align: center;
+  transition: all 1s ease-in-out;
+  position: absolute;
+  bottom: -15px;
+  opacity: 0;
+  left : -20px;
+}
+.image-upload-image:hover .image-name-upload-image{
+  opacity: 1;
+}
+.image-close-upload-image{
+  color: rgba(255,255, 255, 0.26);
+  cursor: pointer;
+ background: #919191;
+ border-radius: 100%;
+position: absolute;
+ width : 15px;
+ height: 15px;
+ display: flex;
+
+ top :-3px;
+ right : -2px;
+padding: 2px;
+ justify-content: center;
+ align-items: center;
+ margin-left: 4px;
+ transition: all 0.4s ease-in;
+}
+.image-close-upload-image:hover{
+  background-color: rgba(250,0,0,0.8);
+}
+.popOver-upload-image{
+  width : 200px;
+  position: absolute;
+  background: #ccc;
+  bottom: -54px;
+  left : 5px;
+  display: flex;
+  z-index: 99;
+  transition: all 0.5s ease;
+  
+}
+.btn-choose-upload-image{
+flex : 1;
+height: 50px;
+color : #fff;
+display: flex;
+justify-content: center;
+align-items: center;
+border : 1px solid rgba(0,0,0,0.2);
+transition: all 0.5s ease-in-out;
+text-align: center;
+font-size: 12px;
+}
+.btn-choose-upload-image label{
+  flex: 1;
+  text-align: center;
+  font-size: 11px;
+  cursor: pointer;
+}
+.btn-choose-upload-image:hover{
+  background: rgba(0, 0, 0, 0.4);
 }
