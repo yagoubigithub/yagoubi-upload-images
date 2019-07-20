@@ -17,8 +17,9 @@ export default class App extends Component {
           onChange={images => this.onChange(images)}
           onError={error => this.onError(error)}
           placeholder="Hello world"
-          multiple={false}
+          multiple
           id={"Hello_world"}
+          maxImages={2}
         />
       </div>
     );
