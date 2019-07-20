@@ -11,7 +11,8 @@ export default class UploadImages extends Component {
   state = {
     open: false,
     images : [],
-    isMobile : false
+    isMobile : false,
+    urls : []
   };
   openPopOver = () =>{
     this.setState({open : !this.state.open})
@@ -32,6 +33,187 @@ export default class UploadImages extends Component {
      document.getElementById('upload_from_device_label_id').click();
    
   }
+  onChange = (ref,image) =>{
+
+    let images = [...this.state.images];
+    if(!this.props.multiple){
+      images = [];
+
+    }
+
+    if(images.filter(img=>image[0].name === img.name).length > 0){
+      return;
+    }
+
+    if (this.props.maxImageSize !== undefined) {
+      if (image[0].size < this.props.maxImageSize) {
+        //Min image Size :
+        if (this.props.minImageSize !== undefined) {
+          if (image[0].size > this.props.minImageSize) {
+            //Tes Max images
+            if (this.props.maxImages !== undefined) {
+              if (images.length < this.props.maxImages) {
+                images.push(image[0]);
+                this.setState({ images });
+                this.converToDataUrlV2(image[0]);
+              } else {
+                //error maxImages
+                this.onError({
+                  type: "maxImages",
+                  message:
+                    "The maximum number of images is : " +
+                    this.props.maxImages
+                });
+              }
+            } else {
+              //fourth else
+              images.push(image[0]);
+              this.setState({ images });
+              this.converToDataUrlV2(image[0]);
+            }
+          } else {
+            //error min size
+            this.onError({
+              type: "minImageSize",
+              message:
+                "The minimum size of image is : " + this.props.minImageSize
+            });
+          }
+        } else {
+          //third else
+          //Tes Max images
+          if (this.props.maxImages !== undefined) {
+            if (images.length < this.props.maxImages) {
+              images.push(image[0]);
+              this.setState({ images });
+              this.converToDataUrlV2(image[0]);
+            } else {
+              //error maxImages
+              this.onError({
+                type: "maxImages",
+                message:
+                  "The maximum number of images is : " + this.props.maxImages
+              });
+            }
+          } else {
+            images.push(image[0]);
+            this.setState({ images });
+            this.converToDataUrlV2(image[0]);
+          }
+        }
+      } else {
+        //error max size
+        this.onError({
+          type: "maxImageSize",
+          message: "The maximum size of image is : " + this.props.maxImageSize
+        });
+      }
+    } else {
+      //second else
+      if (this.props.minImageSize !== undefined) {
+        if (image[0].size > this.props.minImageSize) {
+          //Tes Max images
+          if (this.props.maxImages !== undefined) {
+            if (images.length < this.props.maxImages) {
+              images.push(image[0]);
+              this.setState({ images });
+              this.converToDataUrlV2(image[0]);
+            } else {
+              //error maxImages
+              this.onError({
+                type: "maxImages",
+                message:
+                  "The maximum number of images is : " + this.props.maxImages
+              });
+            }
+          } else {
+            //fourth else
+            images.push(image[0]);
+            this.setState({ images });
+            this.converToDataUrlV2(image[0]);
+          }
+        } else {
+          //error min size
+          this.onError({
+            type: "minImageSize",
+            message:
+              "The minimum size of image is : " + this.props.minImageSize
+          });
+        }
+      } else {
+        //Tes Max images
+        if (this.props.maxImages !== undefined) {
+          if (images.length < this.props.maxImages) {
+            images.push(image[0]);
+            this.setState({ images });
+            this.converToDataUrlV2(image[0]);
+          } else {
+            //error maxImages
+            this.onError({
+              type: "maxImages",
+              message:
+                "The maximum number of images is : " + this.props.maxImages
+            });
+          }
+        } else {
+          images.push(image[0]);
+          this.setState({ images });
+          this.converToDataUrlV2(image[0]);
+        }
+      }
+    }
+  
+    ref.value = "";
+    console.log(ref.files);
+   
+  }
+  uid = () =>{
+    const uid =  `${Math.random().toString(36).slice(2)}-${Date.now().toString(36)}`;
+
+    return uid;
+
+  }
+
+  converToDataUrlV2 = image =>{
+    
+    let urls = [...this.state.urls];
+  
+    const ReaderObj = new FileReader();
+    ReaderObj.onloadend = () => {
+      urls.push({
+        url: ReaderObj.result,
+        name: image.name
+      });
+
+     
+      this.setState({ urls });
+
+    };
+    if (image) {
+      ReaderObj.readAsDataURL(image);
+    }
+  }
+ 
+  removeImages = name => {
+    const imagesTemp = [...this.state.images];
+    const urlsTemp = [...this.state.urls];
+
+    const images = imagesTemp.filter(image=>{
+      return image.name !== name;
+    });
+    const urls = urlsTemp.filter(url=>{
+      return url.name !== name;
+    });
+   
+    this.setState({ images,urls });
+   
+   
+
+   
+  };
+  onError = error => {
+    if (this.props.onError !== undefined) this.props.onError(error);
+  };
   render() {
     const { id, style,placeholder } = this.props;
     const id_upload_from_camera = `${id}_upload_from_camera`;
@@ -84,6 +266,7 @@ export default class UploadImages extends Component {
                 id={id_upload_from_camera}
                 capture="camera"
                 accept="image/*"
+                onChange={ref => this.onChange(ref.target,ref.target.files)}
               />
               {
                 //upload from device input
@@ -93,6 +276,7 @@ export default class UploadImages extends Component {
                 style={{ display: "none" }}
                 id={id_upload_from_device}
                 accept="image/*"
+                onChange={ref => this.onChange(ref.target,ref.target.files)}
               />
             </div>
           </div>
@@ -104,7 +288,25 @@ export default class UploadImages extends Component {
             </div>: null}
             
 
-           
+           {
+              this.state.urls.map(url=>{
+               
+               return (
+                <div className={styles["image-upload-image-container"]} key={this.uid()}>
+              <img
+                src={url.url}
+                className={styles["image-upload-image"]}
+              />
+              <span className={styles["image-name-upload-image"]}>
+                {url.name}
+              </span>
+              <span className={styles["image-close-upload-image"]} onClick={()=>this.removeImages(url.name)}>
+                <img src={Close} />
+              </span>
+            </div>
+               );
+             })
+           }
 
 {
   /*

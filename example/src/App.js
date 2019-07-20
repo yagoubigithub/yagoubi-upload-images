@@ -6,7 +6,7 @@ export default class App extends Component {
   render () {
     return (
       <div>
-        <UploadImages placeholder="Hello world"  id={"Hello_world"} />
+        <UploadImages placeholder="Hello world" multiple id={"Hello_world"} />
       </div>
     )
   }
