@@ -54,4 +54,4 @@ class Example extends Component {
 
 ## License
 
-MIT © [yagoubi abdelkader](https://github.com/yagoubi abdelkader)
+MIT © [yagoubi abdelkader](https://github.com/yagoubigithub)
