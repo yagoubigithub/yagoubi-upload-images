@@ -33,7 +33,7 @@ export default class UploadImages extends Component {
    
   }
   render() {
-    const { id, style } = this.props;
+    const { id, style,placeholder } = this.props;
     const id_upload_from_camera = `${id}_upload_from_camera`;
     const id_upload_from_device = `${id}_upload_from_device`;
     const color  = this.props.color ?  this.props.color : "#0074D9";
@@ -83,6 +83,7 @@ export default class UploadImages extends Component {
                 style={{ display: "none" }}
                 id={id_upload_from_camera}
                 capture="camera"
+                accept="image/*"
               />
               {
                 //upload from device input
@@ -91,6 +92,7 @@ export default class UploadImages extends Component {
                 type="file"
                 style={{ display: "none" }}
                 id={id_upload_from_device}
+                accept="image/*"
               />
             </div>
           </div>
@@ -98,7 +100,7 @@ export default class UploadImages extends Component {
           <div className={styles["images-container-upload-image"]}>
 
           {this.state.images.length == 0  ? <div className={styles["placeholder-upload-image"]}>
-              lorem lorem lorem lorem lorem lorem lorem lor em lort emlor gl
+             {placeholder ? placeholder : null}
             </div>: null}
             
 
