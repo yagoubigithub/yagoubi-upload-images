@@ -20,7 +20,19 @@ export default class App extends Component {
           multiple
           id={"Hello_world"}
           maxImages={2}
+          
         />
+
+        <div className="App">
+          <UploadImages placeholder="default..."  />
+
+          <h4>multi images</h4>
+          <UploadImages
+            placeholder="upload multi images..."
+            multiple
+            color="#FFDC00"
+          />
+        </div>
       </div>
     );
   }
