@@ -22,11 +22,11 @@ import UploadImages from 'yagoubi-upload-images'
 
 class Example extends Component {
   onChange = (images) =>{
-      console.lg(images)
+      console.log(images)
   }
   render () {
     return (
-      <UploadImages onChange={this.onChange} />
+      <UploadImages multiple onChange={this.onChange} />
     )
   }
 }

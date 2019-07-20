@@ -223,8 +223,8 @@ export default class UploadImages extends Component {
   };
   render() {
     const { id, style,placeholder } = this.props;
-    const id_upload_from_camera = `${id}_upload_from_camera`;
-    const id_upload_from_device = `${id}_upload_from_device`;
+    const id_upload_from_camera = `${id}_upload_from_camera-${this.uid()}`;
+    const id_upload_from_device = `${id}_upload_from_device-${this.uid()}`;
     const color  = this.props.color ?  this.props.color : "#0074D9";
 
     return (
