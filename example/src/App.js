@@ -6,7 +6,7 @@ export default class App extends Component {
   render () {
     return (
       <div>
-        <UploadImages  id={"Hello_world"} />
+        <UploadImages   id={"Hello_world"} />
       </div>
     )
   }
