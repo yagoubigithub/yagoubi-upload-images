@@ -5,7 +5,7 @@
 # yagoubi-upload-images
 
 A flexible and beautiful input for images  for ReactJS with multiselect and creatable support.
- Demo [yagoubi-upload-images demo]() .
+ Demo [yagoubi-upload-images demo](https://eager-panini-76e38e.netlify.com/) .
 
 ## Install and Usage
 
