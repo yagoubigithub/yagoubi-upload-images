@@ -36,7 +36,9 @@ export default class UploadImages extends Component {
   onChange = (ref,image) =>{
 
     let images = [...this.state.images];
-    if(!this.props.multiple){
+    
+    if(this.props.multiple === undefined || this.props.multiple === false){
+      console.log(this.props.multiple);
       images = [];
 
     }
@@ -164,7 +166,6 @@ export default class UploadImages extends Component {
     }
   
     ref.value = "";
-    console.log(ref.files);
     this.setState({open : false});
     if (this.props.onChange !== undefined) this.props.onChange(images);
    
@@ -179,7 +180,11 @@ export default class UploadImages extends Component {
   converToDataUrlV2 = image =>{
     
     let urls = [...this.state.urls];
-  
+    if(this.props.multiple === undefined || this.props.multiple === false){
+     
+      urls = [];
+
+    }
     const ReaderObj = new FileReader();
     ReaderObj.onloadend = () => {
       urls.push({

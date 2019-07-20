@@ -1,13 +1,26 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-import UploadImages from 'yagoubi-upload-images'
+import UploadImages from "yagoubi-upload-images";
 
 export default class App extends Component {
-  render () {
+  onError = error => {
+    console.log(error.message);
+  };
+  onChange = images => {
+    console.log(images);
+  };
+  render() {
     return (
       <div>
-        <UploadImages placeholder="Hello world" multiple id={"Hello_world"} />
+        <UploadImages
+          maxImageSize="1000000"
+          onChange={images => this.onChange(images)}
+          onError={error => this.onError(error)}
+          placeholder="Hello world"
+          multiple={false}
+          id={"Hello_world"}
+        />
       </div>
-    )
+    );
   }
 }
