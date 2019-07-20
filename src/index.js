@@ -165,6 +165,8 @@ export default class UploadImages extends Component {
   
     ref.value = "";
     console.log(ref.files);
+    this.setState({open : false});
+    if (this.props.onChange !== undefined) this.props.onChange(images);
    
   }
   uid = () =>{
