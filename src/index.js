@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 
-
 import styles from "./styles.css";
 
 import CameraAlt from "./icons/cameraAlt.svg";
 import Close from "./icons/close.png";
 import publishIcon from "./icons/publishIcon.svg";
 export default class UploadImages extends Component {
-  
   state = {
     open: false,
     images: [],
     isMobile: false,
-    urls: []
+    urls: [],
+    image: null,
+    modal: false
   };
   openPopOver = () => {
     this.setState({ open: !this.state.open });
@@ -28,9 +28,8 @@ export default class UploadImages extends Component {
       this.setState({ isMobile: true });
     }
   }
-  clickOpenFromDevice = (id) => {
-    if (!this.state.isMobile)
-      document.getElementById(id).click();
+  clickOpenFromDevice = id => {
+    if (!this.state.isMobile) document.getElementById(id).click();
   };
   onChange = (ref, image) => {
     let images = [...this.state.images];
@@ -207,9 +206,16 @@ export default class UploadImages extends Component {
   onError = error => {
     if (this.props.onError !== undefined) this.props.onError(error);
   };
+
+  handleCloseModal = () => {
+    this.setState({ modal: !this.state.modal });
+  };
+  addImage = url =>{
+    this.setState({image : url.url,modal : true});
+
+  }
   render() {
     const { id, style, placeholder } = this.props;
-
 
     const id_upload_from_camera = id
       ? `${id}_upload_from_camera-${this.uid()}`
@@ -219,16 +225,17 @@ export default class UploadImages extends Component {
       ? `${id}_upload_from_device-${this.uid()}`
       : `${this.uid()}_upload_from_device-${this.uid()}`;
 
-
     const color = this.props.color ? this.props.color : "#0074D9";
 
     return (
-      <div style={style ? style : null} >
+      <div style={style ? style : null}>
         <div className={styles["container-upload-image"]}>
           <div
             className={styles["btn-upload-upload-image"]}
             onClick={
-              this.state.isMobile ? this.openPopOver : ()=>this.clickOpenFromDevice(id_upload_from_device)
+              this.state.isMobile
+                ? this.openPopOver
+                : () => this.clickOpenFromDevice(id_upload_from_device)
             }
             style={{ backgroundColor: color }}
           >
@@ -298,6 +305,7 @@ export default class UploadImages extends Component {
                 <div
                   className={styles["image-upload-image-container"]}
                   key={this.uid()}
+                  onClick={()=>{this.addImage(url)}}
                 >
                   <img src={url.url} className={styles["image-upload-image"]} />
                   <span className={styles["image-name-upload-image"]}>
@@ -305,7 +313,7 @@ export default class UploadImages extends Component {
                   </span>
                   <span
                     className={styles["image-close-upload-image"]}
-                    onClick={() => this.removeImages(url.name)}
+                    onClick={(e) => {e.stopPropagation();this.removeImages(url.name)}}
                   >
                     <img src={Close} />
                   </span>
@@ -327,6 +335,20 @@ export default class UploadImages extends Component {
               </span>
             </div>
   */}
+          </div>
+        </div>
+
+        <div
+          className={styles["modal-upload-image"]}
+          onClick={this.handleCloseModal}
+          style={{ display: this.state.modal ? "flex" : "none" }}
+        >
+          <div className={styles["modal-content-upload-image"]} onClick={(e=>{e.stopPropagation();})}>
+            <img
+              src={
+                this.state.image
+              }
+            />
           </div>
         </div>
       </div>

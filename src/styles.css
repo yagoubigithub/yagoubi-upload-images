@@ -123,3 +123,30 @@ font-size: 12px;
 .placeholder-upload-image{
   color : rgba(0, 0, 0, 0.4);
 }
+
+.modal-upload-image {
+  display: flex; /* Hidden by default */
+  position: fixed !important; /* Stay in place */
+  z-index: 100 !important; /* Sit on top */
+  left: 0 !important;
+  top: 0;
+  width: 100% !important; /* Full width */
+  height: 100% !important; /* Full height */
+  overflow: auto !important; /* Enable scroll if needed */
+  background-color: rgb(0,0,0) !important; /* Fallback color */
+  background-color: rgba(0,0,0,0.4) !important; /* Black w/ opacity */
+  justify-content: center !important;
+  align-items: center !important;
+  transition: all 0.4s linear;
+
+}
+.modal-content-upload-image {
+  background-color: #fefefe;
+   /* Could be more or less, depending on screen size */
+   display: inline !important;
+   max-width: 80% !important;
+   max-height: 100% !important;
+}
+.modal-content-upload-image img{
+max-width: 100% !important;
+}
