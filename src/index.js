@@ -180,16 +180,14 @@ export default class UploadImages extends Component {
 
   removeImages = name => {
     const imagesTemp = [...this.state.images];
-    const urlsTemp = [...this.state.urls];
+    
 
     const images = imagesTemp.filter(image => {
       return image.name !== name;
     });
-    const urls = urlsTemp.filter(url => {
-      return url.name !== name;
-    });
+   
 
-    this.setState({ images, urls });
+    this.setState({ images });
   };
   onError = error => {
     if (this.props.onError !== undefined) this.props.onError(error);
@@ -304,7 +302,7 @@ export default class UploadImages extends Component {
                   </span>
                   <span
                     className={styles["image-close-upload-image"]}
-                    onClick={(e) => {e.stopPropagation();this.removeImages(url.name)}}
+                    onClick={(e) => {e.stopPropagation();this.removeImages(image.name)}}
                   >
                     <img src={Close} />
                   </span>
