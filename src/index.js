@@ -31,29 +31,32 @@ export default class UploadImages extends Component {
   clickOpenFromDevice = id => {
     if (!this.state.isMobile) document.getElementById(id).click();
   };
-  onChange = (ref, image) => {
+  onChange = (ref) => {
     let images = [...this.state.images];
-
     if (this.props.multiple === undefined || this.props.multiple === false) {
-      console.log(this.props.multiple);
+      
       images = [];
     }
-
-    if (images.filter(img => image[0].name === img.name).length > 0) {
+    let files = ref.files;
+   
+    Object.keys(files).map(i=>{
+      const image  =files[i];
+      
+    if (images.filter(img => image.name === img.name).length > 0) {
       return;
     }
 
     if (this.props.maxImageSize !== undefined) {
-      if (image[0].size < this.props.maxImageSize) {
+      if (image.size < this.props.maxImageSize) {
         //Min image Size :
         if (this.props.minImageSize !== undefined) {
-          if (image[0].size > this.props.minImageSize) {
+          if (image.size > this.props.minImageSize) {
             //Tes Max images
             if (this.props.maxImages !== undefined) {
               if (images.length < this.props.maxImages) {
-                images.push(image[0]);
+                images.push(image);
                 this.setState({ images });
-                this.converToDataUrlV2(image[0]);
+                
               } else {
                 //error maxImages
                 this.onError({
@@ -64,9 +67,9 @@ export default class UploadImages extends Component {
               }
             } else {
               //fourth else
-              images.push(image[0]);
+              images.push(image);
               this.setState({ images });
-              this.converToDataUrlV2(image[0]);
+              
             }
           } else {
             //error min size
@@ -81,9 +84,9 @@ export default class UploadImages extends Component {
           //Tes Max images
           if (this.props.maxImages !== undefined) {
             if (images.length < this.props.maxImages) {
-              images.push(image[0]);
+              images.push(image);
               this.setState({ images });
-              this.converToDataUrlV2(image[0]);
+              
             } else {
               //error maxImages
               this.onError({
@@ -93,9 +96,9 @@ export default class UploadImages extends Component {
               });
             }
           } else {
-            images.push(image[0]);
+            images.push(image);
             this.setState({ images });
-            this.converToDataUrlV2(image[0]);
+            
           }
         }
       } else {
@@ -108,13 +111,13 @@ export default class UploadImages extends Component {
     } else {
       //second else
       if (this.props.minImageSize !== undefined) {
-        if (image[0].size > this.props.minImageSize) {
+        if (image.size > this.props.minImageSize) {
           //Tes Max images
           if (this.props.maxImages !== undefined) {
             if (images.length < this.props.maxImages) {
-              images.push(image[0]);
+              images.push(image);
               this.setState({ images });
-              this.converToDataUrlV2(image[0]);
+              
             } else {
               //error maxImages
               this.onError({
@@ -125,9 +128,9 @@ export default class UploadImages extends Component {
             }
           } else {
             //fourth else
-            images.push(image[0]);
+            images.push(image);
             this.setState({ images });
-            this.converToDataUrlV2(image[0]);
+            
           }
         } else {
           //error min size
@@ -140,9 +143,9 @@ export default class UploadImages extends Component {
         //Tes Max images
         if (this.props.maxImages !== undefined) {
           if (images.length < this.props.maxImages) {
-            images.push(image[0]);
+            images.push(image);
             this.setState({ images });
-            this.converToDataUrlV2(image[0]);
+            
           } else {
             //error maxImages
             this.onError({
@@ -152,12 +155,15 @@ export default class UploadImages extends Component {
             });
           }
         } else {
-          images.push(image[0]);
+          images.push(image);
           this.setState({ images });
-          this.converToDataUrlV2(image[0]);
+         
         }
       }
     }
+    })
+    
+
 
     ref.value = "";
     this.setState({ open: false });
@@ -171,24 +177,6 @@ export default class UploadImages extends Component {
     return uid;
   };
 
-  converToDataUrlV2 = image => {
-    let urls = [...this.state.urls];
-    if (this.props.multiple === undefined || this.props.multiple === false) {
-      urls = [];
-    }
-    const ReaderObj = new FileReader();
-    ReaderObj.onloadend = () => {
-      urls.push({
-        url: ReaderObj.result,
-        name: image.name
-      });
-
-      this.setState({ urls });
-    };
-    if (image) {
-      ReaderObj.readAsDataURL(image);
-    }
-  };
 
   removeImages = name => {
     const imagesTemp = [...this.state.images];
@@ -278,7 +266,8 @@ export default class UploadImages extends Component {
                 id={id_upload_from_camera}
                 capture="camera"
                 accept="image/*"
-                onChange={ref => this.onChange(ref.target, ref.target.files)}
+                onChange={ref => this.onChange(ref.target)}
+                multiple={this.props.multiple ? true : false}
               />
               {
                 //upload from device input
@@ -288,7 +277,8 @@ export default class UploadImages extends Component {
                 style={{ display: "none" }}
                 id={id_upload_from_device}
                 accept="image/*"
-                onChange={ref => this.onChange(ref.target, ref.target.files)}
+                onChange={ref => this.onChange(ref.target)}
+                multiple={this.props.multiple ? true : false}
               />
             </div>
           </div>
@@ -300,16 +290,17 @@ export default class UploadImages extends Component {
               </div>
             ) : null}
 
-            {this.state.urls.map(url => {
+            {this.state.images.map(image => {
+              const url = URL.createObjectURL(image);
               return (
                 <div
                   className={styles["image-upload-image-container"]}
                   key={this.uid()}
-                  onClick={()=>{this.addImage(url)}}
+                  onClick={()=>{this.addImage({url : url})}}
                 >
-                  <img src={url.url} className={styles["image-upload-image"]} />
+                  <img src={url} className={styles["image-upload-image"]} />
                   <span className={styles["image-name-upload-image"]}>
-                    {url.name}
+                    {image.name}
                   </span>
                   <span
                     className={styles["image-close-upload-image"]}
