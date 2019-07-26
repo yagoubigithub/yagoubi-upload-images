@@ -76,27 +76,15 @@ return (
   
 
 | props | type | description |
-
 |---|---|---|
-
 | multiple | boolen | multi-images or not |
-
 | placeholder | string | the placeholder that should diplay in images container |
-
 | maxImages | number | if multiple you can add the maximum of number of images |
-
 |maxImageSize | number | maximum file size |
-
 | minImageSize | number | minimum file size |
-
 | color | string | the color of the upload button exmple "#FFDC00" . the default is #0074D9 |
-
 | onError | method | executing when an error happen take one param is error|
-
 | onChange | method | executing when image uploaded take one param is the images |
-
-  
-  
   
   
   
