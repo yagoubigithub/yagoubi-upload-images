@@ -1,10 +1,10 @@
 {
   "name": "yagoubi-upload-images",
-  "version": "1.0.8",
+  "version": "1.1.9",
   "description": "",
   "author": "yagoubi abdelkader",
   "license": "MIT",
-  "repository": "yagoubigithub/yagoubiupload-images",
+  "repository": "yagoubigithub/yagoubi-upload-images",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",

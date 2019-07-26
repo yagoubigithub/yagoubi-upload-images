@@ -61,10 +61,10 @@
   transition: all 1s ease-in-out;
   position: absolute;
   bottom: -15px;
-  opacity: 0;
   left : -20px;
+  opacity: 0;
 }
-.image-upload-image:hover .image-name-upload-image{
+.image-upload-image-container:hover .image-name-upload-image{
   opacity: 1;
 }
 .image-close-upload-image{
