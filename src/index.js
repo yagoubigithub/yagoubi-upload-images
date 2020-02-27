@@ -177,6 +177,16 @@ export default class UploadImages extends Component {
     return uid;
   };
 
+  reset = () =>{
+    this.setState({
+       open: false,
+    images: [],
+    isMobile: false,
+    urls: [],
+    image: null,
+    modal: false
+    })
+  }
 
   removeImages = name => {
     const imagesTemp = [...this.state.images];

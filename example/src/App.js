@@ -3,12 +3,24 @@ import React, { Component } from "react";
 import UploadImages from "yagoubi-upload-images";
 
 export default class App extends Component {
+  
+  constructor (props){
+    super(props);
+    this.UploadImagesInput = React.createRef()
+
+  }
   onError = error => {
     console.log(error.message);
   };
   onChange = images => {
     console.log(images);
   };
+  reset =  () =>{
+    console.log(this.UploadImagesInput.current)
+   this.UploadImagesInput.current.reset();
+
+   
+  }
   render() {
     return (
       <div>
@@ -31,8 +43,10 @@ export default class App extends Component {
             placeholder="upload multi images..."
             multiple
             color="#FFDC00"
+           ref={this.UploadImagesInput}
           />
         </div>
+        <button onClick={this.reset}>Reset</button>
       </div>
     );
   }
