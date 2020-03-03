@@ -295,7 +295,7 @@ export default class UploadImages extends Component {
               try {
                 url = URL.createObjectURL(image);
               } catch (error) {
-                url = `${image.name}/bla`;
+                url = `${image.name}`;
                
               }
 

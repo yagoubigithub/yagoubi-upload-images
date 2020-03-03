@@ -13,7 +13,7 @@ export default class App extends Component {
     console.log(error.message);
   };
   onChange = images => {
-   // console.log(images);
+    console.log(images);
   };
   reset =  () =>{
  
