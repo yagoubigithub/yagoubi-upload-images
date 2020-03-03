@@ -18,7 +18,7 @@ export default class App extends Component {
   reset =  () =>{
  
    
-   this.UploadImagesInput.current.removeAllImages();
+   this.UploadImagesInput.current.addImages("C:/Users/Public/Pictures/Sample Pictures/Hydrangeas - Copie.jpg");
 
    
   }
