@@ -13,11 +13,12 @@ export default class App extends Component {
     console.log(error.message);
   };
   onChange = images => {
-    console.log(images);
+   // console.log(images);
   };
   reset =  () =>{
-    console.log(this.UploadImagesInput.current)
-   this.UploadImagesInput.current.reset();
+ 
+   
+   this.UploadImagesInput.current.removeAllImages();
 
    
   }
@@ -32,7 +33,7 @@ export default class App extends Component {
           multiple
           id={"Hello_world"}
           maxImages={2}
-          
+          ref={this.UploadImagesInput}
         />
 
         <div className="App">
@@ -43,7 +44,7 @@ export default class App extends Component {
             placeholder="upload multi images..."
             multiple
             color="#FFDC00"
-           ref={this.UploadImagesInput}
+          
           />
         </div>
         <button onClick={this.reset}>Reset</button>

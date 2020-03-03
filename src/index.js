@@ -177,22 +177,14 @@ export default class UploadImages extends Component {
     return uid;
   };
 
-  reset = () =>{
-    this.setState({
-       open: false,
-    images: [],
-    isMobile: false,
-    urls: [],
-    image: null,
-    modal: false
-    })
-  }
-
+  
   removeImages = name => {
     const imagesTemp = [...this.state.images];
-    
+   
 
+   
     const images = imagesTemp.filter(image => {
+     
       return image.name !== name;
     });
    
@@ -201,6 +193,15 @@ export default class UploadImages extends Component {
       if (this.props.onChange !== undefined) this.props.onChange(images);
     });
   };
+  removeAllImages = () =>{
+    this.setState({ images : [], 
+       urls: [],
+      image: null,
+      modal: false },()=>{
+     
+      if (this.props.onChange !== undefined) this.props.onChange([]);
+    });
+  }
   onError = error => {
     if (this.props.onError !== undefined) this.props.onError(error);
   };
@@ -289,6 +290,7 @@ export default class UploadImages extends Component {
                 accept="image/*"
                 onChange={ref => this.onChange(ref.target)}
                 multiple={this.props.multiple ? true : false}
+                ref={input => this.input = input}
               />
             </div>
           </div>
