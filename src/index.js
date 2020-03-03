@@ -197,7 +197,9 @@ export default class UploadImages extends Component {
     });
    
 
-    this.setState({ images });
+    this.setState({ images },()=>{
+      if (this.props.onChange !== undefined) this.props.onChange(images);
+    });
   };
   onError = error => {
     if (this.props.onError !== undefined) this.props.onError(error);
