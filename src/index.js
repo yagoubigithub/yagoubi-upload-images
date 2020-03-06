@@ -194,12 +194,14 @@ export default class UploadImages extends Component {
   addImage = url => {
     this.setState({ image: url.url, modal: true });
   };
-  addImages = url => {
+  addImages = (name,url) => {
     const images = [...this.state.images];
 
-    images.push({ name: url, type: "isNotFile" });
+    images.push({ name: name, type: "isNotFile", path : url});
    
-    this.setState({ images });
+    this.setState({ images }, ()=>{
+      this.props.onChange([...this.state.images])
+    });
   };
   render() {
     const { id, style, placeholder } = this.props;
@@ -291,11 +293,11 @@ export default class UploadImages extends Component {
             ) : null}
 
             {this.state.images.map(image => {
-              let url = `${image.name}`;
+              let url = `${image.path}`;
               try {
                 url = URL.createObjectURL(image);
               } catch (error) {
-                url = `${image.name}`;
+                url = `${image.path}`;
                
               }
 
