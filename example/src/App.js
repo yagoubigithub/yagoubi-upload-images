@@ -17,8 +17,14 @@ export default class App extends Component {
   };
   reset =  () =>{
  
+    const images = [];
+   [1,2,2,4,7,8,9].map(i=>{
+     images.push({
+      name : 'Koala.jpg',path : 'file:C:/Users/Public/Pictures/Sample Pictures/Koala.jpg'
+     })
    
-   this.UploadImagesInput.current.addImages('Koala.jpg','file:C:/Users/Public/Pictures/Sample Pictures/Koala.jpg');
+   })
+   this.UploadImagesInput.current.addAllImages(images);
 
    
   }
