@@ -203,6 +203,11 @@ export default class UploadImages extends Component {
       this.props.onChange([...this.state.images])
     });
   };
+  addAllImages = (images) =>{
+    this.setState({ images }, ()=>{
+      this.props.onChange([...this.state.images])
+    });
+  }
   render() {
     const { id, style, placeholder } = this.props;
 
